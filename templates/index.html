@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia Search Engine</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    
+        h1 {
+            color: #004080;
+            margin-bottom: 20px;
+        }
+    
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+    
+        label {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+    
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 300px;
+        }
+    
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #004080;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #00264d;
+        }
+    
+        h2 {
+            margin-top: 20px;
+            color: #004080;
+        }
+
+        h3 {
+            font-family: 'Georgia', serif;
+            color: #004080;
+        }
+    
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+    
+        li {
+            margin-bottom: 10px;
+        }
+    
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+    
+        a:hover {
+            text-decoration: underline;
+        }        
+    
+        p {
+            color: #555;
+            text-align: center;
+        }
+
+        table {
+            width: 100%; /* Make the table take 100% width */
+            border-spacing: 0; 
+        }
+
+        th, td {
+            border: none; 
+            padding: 8px; 
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        /* Set a fixed height and make the table scrollable */
+        .scrollable-table {
+            max-height: 400px; /* Set your preferred height */
+            overflow: auto;
+        }
+    </style>    
+</head>
+<body>
+    <h1>Wikipedia Search Engine</h1>
+    <form method="post">
+        <label for="query">Enter your query:</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if query %}
+    <h2>Results for {{ query }}:</h2>
+    {% if results %}
+        <!-- Wrap the table in a div with a fixed height and scrollable -->
+        <div class="scrollable-table">
+            <table>            
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td><h3>{{ result['title'] }}</h3></td>
+                            <td><a href="{{ result['url'] }}" target="_blank">{{ result['url'] }}</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+    {% endif %}
+</body>
+</html>
